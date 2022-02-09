@@ -17,21 +17,31 @@ class CounterApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
         create: (_) => CounterCubit(),
-        child: Scaffold(
-          appBar: AppBar(),
-          body: SafeArea(
-            child: Center(
-              child: BlocBuilder<CounterCubit, int>(
-                builder: (context, count) => Text('$count'),
-              ),
-            ),
+        child: CounterPage(),
+      ),
+    );
+  }
+}
+
+class CounterPage extends StatelessWidget {
+  const CounterPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(
+        child: Center(
+          child: BlocBuilder<CounterCubit, int>(
+            builder: (context, count) => Text('$count'),
           ),
-          floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                context.read<CounterCubit>().increment();
-              },
-              child: Icon(Icons.add),),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<CounterCubit>().increment();
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
